@@ -33,6 +33,10 @@ public class AppUser {
 
     private String name;
 
+    private String password;
+
+    private String role;
+
     @CreatedDate
     private Instant createdDate;
 
