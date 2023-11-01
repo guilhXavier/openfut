@@ -1,5 +1,7 @@
 package br.com.gtx.openfut.service.impl;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import br.com.gtx.openfut.domain.entity.AppUser;
@@ -26,8 +28,10 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public AppUser findByName(String name) {
-        // TODO Auto-generated method stub
-        return null;
+    public Optional<AppUser> findByName(String name) {
+
+        Optional<AppUser> findByName = appUserRepository.findByName(name);
+
+        return findByName;
     }
 }
