@@ -1,6 +1,7 @@
 package br.com.gtx.openfut.service.impl;
 
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import org.springframework.stereotype.Service;
 
@@ -34,4 +35,29 @@ public class AppUserServiceImpl implements AppUserService {
 
         return findByName;
     }
+
+    @Override
+    public void updateUser(AppUserFormDTO appUserFormDTO) {
+        Optional<AppUser> user = appUserRepository.findByName(appUserFormDTO.name());
+
+        Predicate<String> isNotEmpty = (value) -> !value.isEmpty();
+
+        if (user.isPresent()) {
+            AppUser updatedUser = user.get();
+
+            Optional.ofNullable(appUserFormDTO.name())
+                    .filter(isNotEmpty)
+                    .ifPresent(updatedUser::setName);
+
+            Optional.ofNullable(appUserFormDTO.password())
+                    .filter(isNotEmpty)
+                    .ifPresent(updatedUser::setPassword);
+
+            Optional.ofNullable(appUserFormDTO.overall())
+                    .filter((overall) -> overall >= 0)
+                    .ifPresent(updatedUser::setOverall);
+        }
+
+    }
+
 }

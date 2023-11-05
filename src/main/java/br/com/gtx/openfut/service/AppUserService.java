@@ -11,4 +11,6 @@ public interface AppUserService {
 
     Optional<AppUser> findByName(String name);
 
+    void updateUser(AppUserFormDTO appUserFormDTO);
+
 }

@@ -3,6 +3,7 @@ package br.com.gtx.openfut.controller;
 import java.util.Optional;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,11 @@ public class AppUserController {
         Optional<AppUser> findByName = appUserService.findByName(appUserFormDTO.name());
 
         return findByName.isPresent();
+    }
+
+    @PatchMapping("/update")
+    void patchUser(@RequestBody final AppUserFormDTO appUserFormDTO) {
+        appUserService.updateUser(appUserFormDTO);
     }
 
 }
