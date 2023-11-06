@@ -56,6 +56,8 @@ public class AppUserServiceImpl implements AppUserService {
             Optional.ofNullable(appUserFormDTO.overall())
                     .filter((overall) -> overall >= 0)
                     .ifPresent(updatedUser::setOverall);
+
+            appUserRepository.save(updatedUser);
         }
 
     }

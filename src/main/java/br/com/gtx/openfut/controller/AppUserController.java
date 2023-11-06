@@ -43,5 +43,4 @@ public class AppUserController {
     void patchUser(@RequestBody final AppUserFormDTO appUserFormDTO) {
         appUserService.updateUser(appUserFormDTO);
     }
-
 }
