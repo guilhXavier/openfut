@@ -1,6 +1,5 @@
 package br.com.gtx.openfut.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import br.com.gtx.openfut.domain.entity.AppUser;
@@ -12,12 +11,16 @@ public interface TeamService {
 
     void update(TeamFormDTO teamFormDTO);
 
-    Optional<Team> findByName(String name);
+    Iterable<Team> findByNameContains(String name);
 
     Optional<Team> findById(Long id);
 
-    List<Team> findAll();
+    Iterable<Team> findAll();
 
-    List<AppUser> getPlayersByTeamId(Long id);
+    Iterable<AppUser> getPlayersByTeamId(Long id);
+
+    void delete(Long id);
+
+    void addPlayer(Long teamId, Long playerId);
 
 }

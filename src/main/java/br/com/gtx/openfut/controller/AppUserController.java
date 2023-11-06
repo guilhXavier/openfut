@@ -32,7 +32,7 @@ public class AppUserController {
         return;
     }
 
-    @PostMapping("/user-login")
+    @PostMapping("/login")
     boolean loginUser(@RequestBody final AppUserFormDTO appUserFormDTO) {
         Optional<AppUser> findByName = appUserService.findByName(appUserFormDTO.name());
 

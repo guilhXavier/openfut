@@ -1,5 +1,6 @@
 package br.com.gtx.openfut.service.impl;
 
+import java.time.Instant;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -24,6 +25,8 @@ public class AppUserServiceImpl implements AppUserService {
     public AppUser save(AppUserFormDTO appUserFormDTO) {
 
         AppUser appUser = appUserMapper.apply(appUserFormDTO);
+
+        appUser.setCreatedDate(Instant.now());
 
         return appUserRepository.save(appUser);
     }
