@@ -57,7 +57,7 @@ public class TeamController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/team")
+    @GetMapping("/name")
     Iterable<Team> findByNameContaining(@RequestParam final String name) {
         Iterable<Team> team = teamService.findByNameContains(name);
 
