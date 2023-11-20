@@ -4,10 +4,12 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import br.com.gtx.openfut.domain.entity.League;
 import br.com.gtx.openfut.domain.entity.Match;
 import br.com.gtx.openfut.domain.entity.Team;
 import br.com.gtx.openfut.dto.MatchFormDto;
 import br.com.gtx.openfut.mapper.MatchMapper;
+import br.com.gtx.openfut.repository.LeagueRepository;
 import br.com.gtx.openfut.repository.MatchRepository;
 import br.com.gtx.openfut.repository.TeamRepository;
 import br.com.gtx.openfut.service.MatchService;
@@ -19,13 +21,17 @@ public class MatchServiceImpl implements MatchService {
 
     private final MatchRepository matchRepository;
 
+    private final LeagueRepository leagueRepository;
+
     private final TeamRepository teamRepository;
 
     private final MatchMapper mapper;
 
     @Override
     public Iterable<Match> findAllByLeague(Long leagueId) {
-        return matchRepository.find;
+        League league = leagueRepository.findById(leagueId).get();
+
+        return matchRepository.findAllByLeague(league);
     }
 
     @Override
@@ -51,7 +57,9 @@ public class MatchServiceImpl implements MatchService {
     public Iterable<Match> findAllByTeamAndLeague(Long teamId, Long leagueId) {
         Team team = teamRepository.findById(teamId).get();
 
-        return matchRepository.findAllByTeamAndLeague(team, null);
+        League league = leagueRepository.findById(leagueId).get();
+
+        return matchRepository.findAllByTeamAndLeague(team, league);
     }
 
 }
