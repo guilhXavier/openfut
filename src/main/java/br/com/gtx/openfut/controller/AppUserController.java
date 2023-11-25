@@ -2,6 +2,8 @@ package br.com.gtx.openfut.controller;
 
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,10 +30,14 @@ public class AppUserController {
     }
 
     @PostMapping("/login")
-    boolean loginUser(@RequestBody final AppUserLoginDto appUserLoginDto) {
+    ResponseEntity<AppUser> loginUser(@RequestBody final AppUserLoginDto appUserLoginDto) {
         Optional<AppUser> findByName = appUserService.findByName(appUserLoginDto.name());
 
-        return findByName.isPresent();
+        if (findByName.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(findByName.get());
     }
 
     @PatchMapping("/update")

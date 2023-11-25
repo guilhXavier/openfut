@@ -20,5 +20,4 @@ public class AppUserMapper implements Function<AppUserFormDTO, AppUser> {
                 .overall(appUserFormDTO.overall())
                 .build();
     }
-
 }
