@@ -47,19 +47,19 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
-    public Iterable<Match> findAllByTeam(Long teamId) {
+    public Iterable<Match> findAllByHomeTeam(Long teamId) {
         Team team = teamRepository.findById(teamId).get();
 
-        return matchRepository.findAllByTeam(team);
+        return matchRepository.findAllByHomeTeam(team);
     }
 
     @Override
-    public Iterable<Match> findAllByTeamAndLeague(Long teamId, Long leagueId) {
+    public Iterable<Match> findAllByHomeTeamAndLeague(Long teamId, Long leagueId) {
         Team team = teamRepository.findById(teamId).get();
 
         League league = leagueRepository.findById(leagueId).get();
 
-        return matchRepository.findAllByTeamAndLeague(team, league);
+        return matchRepository.findAllByHomeTeamAndLeague(team, league);
     }
 
 }

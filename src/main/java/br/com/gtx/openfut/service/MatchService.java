@@ -12,7 +12,7 @@ public interface MatchService {
 
     Optional<Match> findById(Long matchId);
 
-    Iterable<Match> findAllByTeam(Long teamId);
+    Iterable<Match> findAllByHomeTeam(Long teamId);
 
-    Iterable<Match> findAllByTeamAndLeague(Long teamId, Long leagueId);
+    Iterable<Match> findAllByHomeTeamAndLeague(Long teamId, Long leagueId);
 }

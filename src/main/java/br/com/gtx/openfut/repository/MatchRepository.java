@@ -11,9 +11,9 @@ import br.com.gtx.openfut.domain.entity.Team;
 public interface MatchRepository extends CrudRepository<Match, Long> {
     Iterable<Match> findAllByLeague(League league);
 
-    Iterable<Match> findAllByTeam(Team team);
+    Iterable<Match> findAllByHomeTeam(Team team);
 
     Optional<Match> findById(Long matchId);
 
-    Iterable<Match> findAllByTeamAndLeague(Team team, League league);
+    Iterable<Match> findAllByHomeTeamAndLeague(Team homeTeam, League league);
 }

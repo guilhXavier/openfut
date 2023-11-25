@@ -36,12 +36,12 @@ public class MatchController {
     }
 
     @GetMapping("/{id}/all")
-    Iterable<Match> findAllByTeam(@PathVariable final Long id) {
-        return matchService.findAllByTeam(id);
+    Iterable<Match> findAllByHomeTeam(@PathVariable final Long id) {
+        return matchService.findAllByHomeTeam(id);
     }
 
     @GetMapping("/league/{leagueId}/team/{id}")
     Iterable<Match> findAllByTeam(@PathVariable final Long leagueId, @PathVariable final Long teamId) {
-        return matchService.findAllByTeamAndLeague(leagueId, teamId);
+        return matchService.findAllByHomeTeamAndLeague(leagueId, teamId);
     }
 }
