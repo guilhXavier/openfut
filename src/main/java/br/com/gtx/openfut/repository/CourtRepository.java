@@ -9,7 +9,7 @@ import br.com.gtx.openfut.domain.entity.Team;
 
 public interface CourtRepository extends CrudRepository<Court, Long> {
 
-    List<Court> findByHomeTeams(List<Team> homeTeams);
+    List<Court> findByHomeTeamsIn(List<Team> homeTeams);
 
     List<Court> findByName(String name);
 

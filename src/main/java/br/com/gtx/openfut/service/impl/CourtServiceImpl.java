@@ -3,6 +3,7 @@ package br.com.gtx.openfut.service.impl;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import org.springframework.stereotype.Service;
 
@@ -34,9 +35,24 @@ public class CourtServiceImpl implements CourtService {
 
     @Override
     public void update(CourtFormDto courtFormDto) {
-        Court court = mapper.apply(courtFormDto);
+        Optional<Court> findById = courtRepository.findById(courtFormDto.id());
 
-        courtRepository.save(court);
+        Predicate<String> isNotEmpty = (value) -> !value.isEmpty();
+
+        if (findById.isPresent()) {
+            Court updatedCourt = findById.get();
+
+            Optional.ofNullable(courtFormDto.name())
+                    .filter(isNotEmpty)
+                    .ifPresent(updatedCourt::setName);
+
+            Optional.ofNullable(courtFormDto.address())
+                    .filter(isNotEmpty)
+                    .ifPresent(updatedCourt::setAddress);
+
+            courtRepository.save(updatedCourt);
+        }
+
     }
 
     @Override
@@ -50,7 +66,7 @@ public class CourtServiceImpl implements CourtService {
 
         List<Team> asList = Arrays.asList(team.get());
 
-        return Optional.of(courtRepository.findByHomeTeams(asList).get(0));
+        return Optional.of(courtRepository.findByHomeTeamsIn(asList).get(0));
     }
 
     @Override
@@ -78,6 +94,11 @@ public class CourtServiceImpl implements CourtService {
 
         teamRepository.save(team);
 
+    }
+
+    @Override
+    public void delete(Long courtId) {
+        courtRepository.deleteById(courtId);
     }
 
 }
