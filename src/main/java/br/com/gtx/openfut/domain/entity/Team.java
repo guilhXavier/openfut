@@ -11,12 +11,16 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Builder
 @ToString(of = { "id" })
@@ -34,7 +38,7 @@ public class Team {
     private Court homeCourt;
 
     @OneToMany
-    @JoinColumn(name = "team_id")
+    @JoinColumn(name = "current_team")
     private List<AppUser> players;
 
     @ManyToMany
