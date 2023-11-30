@@ -11,6 +11,8 @@ public interface CourtService {
 
     void update(CourtFormDto courtFormDto);
 
+    void setHomeCourt(Long teamId, Long courtId);
+
     Iterable<Court> findAll();
 
     Optional<Court> getCourtByTeam(Long teamId);

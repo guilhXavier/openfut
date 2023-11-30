@@ -68,4 +68,16 @@ public class CourtServiceImpl implements CourtService {
         return Optional.of(courtRepository.findByAddress(address).get(0));
     }
 
+    @Override
+    public void setHomeCourt(Long teamId, Long courtId) {
+        Team team = teamRepository.findById(teamId).get();
+
+        Court court = courtRepository.findById(courtId).get();
+
+        team.setHomeCourt(court);
+
+        teamRepository.save(team);
+
+    }
+
 }

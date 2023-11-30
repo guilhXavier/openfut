@@ -29,6 +29,11 @@ public class CourtController {
         courtService.save(entity);
     }
 
+    @PatchMapping("/home-court")
+    public void setHomeCourt(@RequestParam Long teamId, @RequestParam Long courtId) {
+        courtService.setHomeCourt(teamId, courtId);
+    }
+
     @PatchMapping
     public void update(@RequestBody CourtFormDto courtFormDto) {
         courtService.update(courtFormDto);
