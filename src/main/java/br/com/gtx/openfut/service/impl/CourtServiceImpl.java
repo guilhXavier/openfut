@@ -61,12 +61,12 @@ public class CourtServiceImpl implements CourtService {
     }
 
     @Override
-    public Optional<Court> getCourtByTeam(Long teamId) {
+    public Iterable<Court> getCourtByTeam(Long teamId) {
         Optional<Team> team = teamRepository.findById(teamId);
 
         List<Team> asList = Arrays.asList(team.get());
 
-        return Optional.of(courtRepository.findByHomeTeamsIn(asList).get(0));
+        return courtRepository.findByHomeTeamsIn(asList);
     }
 
     @Override
@@ -75,13 +75,13 @@ public class CourtServiceImpl implements CourtService {
     }
 
     @Override
-    public Optional<Court> getCourtByName(String name) {
-        return Optional.of(courtRepository.findByName(name).get(0));
+    public Iterable<Court> getCourtByName(String name) {
+        return courtRepository.findByNameContains(name);
     }
 
     @Override
-    public Optional<Court> getCourtByAddress(String address) {
-        return Optional.of(courtRepository.findByAddress(address).get(0));
+    public Iterable<Court> getCourtByAddress(String address) {
+        return courtRepository.findByAddressContains(address);
     }
 
     @Override

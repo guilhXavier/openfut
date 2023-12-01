@@ -11,8 +11,8 @@ public interface CourtRepository extends CrudRepository<Court, Long> {
 
     List<Court> findByHomeTeamsIn(List<Team> homeTeams);
 
-    List<Court> findByName(String name);
+    List<Court> findByNameContains(String name);
 
-    List<Court> findByAddress(String address);
+    List<Court> findByAddressContains(String address);
 
 }

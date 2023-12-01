@@ -17,12 +17,12 @@ public interface CourtService {
 
     Iterable<Court> findAll();
 
-    Optional<Court> getCourtByTeam(Long teamId);
+    Iterable<Court> getCourtByTeam(Long teamId);
 
     Optional<Court> getCourtById(Long courtId);
 
-    Optional<Court> getCourtByName(String name);
+    Iterable<Court> getCourtByName(String name);
 
-    Optional<Court> getCourtByAddress(String address);
+    Iterable<Court> getCourtByAddress(String address);
 
 }

@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,46 +52,37 @@ public class CourtController {
     }
 
     @GetMapping("/team")
-    public ResponseEntity<Court> getCourtByTeam(@RequestParam Long teamId) {
-        Optional<Court> courtByTeam = courtService.getCourtByTeam(teamId);
+    public ResponseEntity<Iterable<Court>> getCourtByTeam(@RequestParam Long teamId) {
+        Iterable<Court> courtByTeam = courtService.getCourtByTeam(teamId);
 
-        if (courtByTeam.isPresent()) {
-            return ResponseEntity.ok(courtByTeam.get());
-        }
+        return ResponseEntity.ok(courtByTeam);
 
-        return ResponseEntity.badRequest().body(null);
     }
 
     @GetMapping("/id")
-    public ResponseEntity<Court> getCourtById(@RequestParam Long teamId) {
-        Optional<Court> courtById = courtService.getCourtByTeam(teamId);
+    public ResponseEntity<Court> getCourtById(@RequestParam Long courtId) {
+        Optional<Court> courtById = courtService.getCourtById(courtId);
 
+        System.out.println(courtById.isPresent());
         if (courtById.isPresent()) {
-            return ResponseEntity.ok(courtById.get());
+            return ResponseEntity.status(HttpStatus.OK).body(courtById.get());
         }
 
         return ResponseEntity.badRequest().body(null);
     }
 
     @GetMapping("/name")
-    public ResponseEntity<Court> getCourtByName(@RequestParam String name) {
-        Optional<Court> courtByName = courtService.getCourtByName(name);
+    public ResponseEntity<Iterable<Court>> getCourtByName(@RequestParam String name) {
+        Iterable<Court> courtByName = courtService.getCourtByName(name);
 
-        if (courtByName.isPresent()) {
-            return ResponseEntity.ok(courtByName.get());
-        }
+        return ResponseEntity.status(HttpStatus.OK).body(courtByName);
 
-        return ResponseEntity.badRequest().body(null);
     }
 
     @GetMapping("/address")
-    public ResponseEntity<Court> getCourtByAddress(@RequestParam String address) {
-        Optional<Court> courtByAddress = courtService.getCourtByAddress(address);
+    public ResponseEntity<Iterable<Court>> getCourtByAddress(@RequestParam String address) {
+        Iterable<Court> courtByAddress = courtService.getCourtByAddress(address);
 
-        if (courtByAddress.isPresent()) {
-            return ResponseEntity.ok(courtByAddress.get());
-        }
-
-        return ResponseEntity.badRequest().body(null);
+        return ResponseEntity.status(HttpStatus.OK).body(courtByAddress);
     }
 }

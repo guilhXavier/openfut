@@ -7,6 +7,8 @@ import jakarta.persistence.OneToMany;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,5 +35,6 @@ public class Court {
     private String address;
 
     @OneToMany(mappedBy = "homeCourt")
+    @JsonIgnore
     private List<Team> homeTeams;
 }
