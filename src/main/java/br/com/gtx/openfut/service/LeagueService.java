@@ -4,7 +4,9 @@ import br.com.gtx.openfut.domain.entity.League;
 import br.com.gtx.openfut.dto.LeagueFormDto;
 
 public interface LeagueService {
-    void save(LeagueFormDto leagueFormDto);
+    void create(LeagueFormDto leagueFormDto, Long ownerId);
+
+    void addTeamToLeague(Long teamId, Long leagueId);
 
     Iterable<League> findAll();
 
