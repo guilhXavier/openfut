@@ -4,11 +4,13 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import br.com.gtx.openfut.domain.entity.Court;
 import br.com.gtx.openfut.domain.entity.League;
 import br.com.gtx.openfut.domain.entity.Match;
 import br.com.gtx.openfut.domain.entity.Team;
 import br.com.gtx.openfut.dto.MatchFormDto;
 import br.com.gtx.openfut.mapper.MatchMapper;
+import br.com.gtx.openfut.repository.CourtRepository;
 import br.com.gtx.openfut.repository.LeagueRepository;
 import br.com.gtx.openfut.repository.MatchRepository;
 import br.com.gtx.openfut.repository.TeamRepository;
@@ -21,24 +23,17 @@ public class MatchServiceImpl implements MatchService {
 
     private final MatchRepository matchRepository;
 
+    private final CourtRepository courtRepository;
+
     private final LeagueRepository leagueRepository;
 
     private final TeamRepository teamRepository;
-
-    private final MatchMapper mapper;
 
     @Override
     public Iterable<Match> findAllByLeague(Long leagueId) {
         League league = leagueRepository.findById(leagueId).get();
 
         return matchRepository.findAllByLeague(league);
-    }
-
-    @Override
-    public void save(MatchFormDto matchFormDto) {
-        Match match = mapper.apply(matchFormDto);
-
-        matchRepository.save(match);
     }
 
     @Override
@@ -60,6 +55,30 @@ public class MatchServiceImpl implements MatchService {
         League league = leagueRepository.findById(leagueId).get();
 
         return matchRepository.findAllByHomeTeamAndLeague(team, league);
+    }
+
+    @Override
+    public void create(Long homeTeamId, Long awayTeamId, Long courtId, Long leagueId) {
+        Team homeTeam = teamRepository.findById(homeTeamId).get();
+
+        Team awayTeam = teamRepository.findById(awayTeamId).get();
+
+        Court court = courtRepository.findById(courtId).get();
+
+        League league = leagueRepository.findById(leagueId).get();
+
+        Match match = new Match();
+
+        match.setHomeTeam(homeTeam);
+        match.setHomeScore(0);
+
+        match.setAwayTeam(awayTeam);
+        match.setAwayScore(0);
+
+        match.setCourt(court);
+        match.setLeague(league);
+
+        matchRepository.save(match);
     }
 
 }

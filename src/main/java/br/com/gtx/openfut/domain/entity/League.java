@@ -2,6 +2,8 @@ package br.com.gtx.openfut.domain.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.gtx.openfut.domain.LeagueState;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -41,11 +43,14 @@ public class League {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "app_user_id")
+    @JsonIgnore
     private AppUser owner;
 
     @OneToMany(mappedBy = "league")
+    @JsonIgnore
     private List<Match> matches;
 
     @ManyToMany(mappedBy = "leagues")
+    @JsonIgnore
     private List<Team> teams;
 }

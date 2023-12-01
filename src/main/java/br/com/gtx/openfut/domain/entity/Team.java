@@ -2,6 +2,8 @@ package br.com.gtx.openfut.domain.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -39,9 +41,11 @@ public class Team {
 
     @OneToMany
     @JoinColumn(name = "current_team")
+    @JsonIgnore
     private List<AppUser> players;
 
     @ManyToMany
     @JoinTable(name = "leagues_teams", joinColumns = @JoinColumn(name = "team_id"), inverseJoinColumns = @JoinColumn(name = "league_id"))
+    @JsonIgnore
     private List<League> leagues;
 }
